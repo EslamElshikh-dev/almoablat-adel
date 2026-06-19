@@ -585,4 +585,63 @@ height:350px;
 
 }
 ```
+```css
+/* ==========================
+   Contact Form
+========================== */
+
+.contact-form{
+padding:100px 0;
+background:#f8fafc;
+}
+
+.form-grid{
+display:grid;
+gap:20px;
+max-width:900px;
+margin:auto;
+}
+
+.form-grid input,
+.form-grid select,
+.form-grid textarea{
+width:100%;
+padding:16px;
+border:1px solid #e5e7eb;
+border-radius:16px;
+font-size:16px;
+outline:none;
+background:#fff;
+transition:.3s;
+}
+
+.form-grid input:focus,
+.form-grid select:focus,
+.form-grid textarea:focus{
+border-color:#d4a017;
+box-shadow:0 0 0 4px rgba(212,160,23,.12);
+}
+
+.form-grid textarea{
+height:180px;
+resize:none;
+}
+
+.submit-btn{
+background:linear-gradient(135deg,#d4a017,#f6d365);
+color:#fff;
+border:none;
+padding:16px;
+border-radius:16px;
+font-size:18px;
+font-weight:700;
+cursor:pointer;
+transition:.3s;
+}
+
+.submit-btn:hover{
+transform:translateY(-3px);
+box-shadow:0 10px 25px rgba(212,160,23,.25);
+}
+```
 
