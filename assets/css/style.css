@@ -555,3 +555,35 @@ font-size:14px;
 
 }
 ```
+```css id="6iqv1x"
+/* ==========================
+   Map Section
+========================== */
+
+.map-section{
+padding:100px 0;
+background:#ffffff;
+}
+
+.map-container{
+overflow:hidden;
+border-radius:24px;
+box-shadow:0 15px 40px rgba(0,0,0,.12);
+}
+
+.map-container iframe{
+width:100%;
+height:500px;
+border:0;
+display:block;
+}
+
+@media(max-width:768px){
+
+.map-container iframe{
+height:350px;
+}
+
+}
+```
+
