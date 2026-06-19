@@ -451,6 +451,7 @@ font-size:14px;
 }
 ```
 ```css
+```css
 /* ==========================
    Features Premium Cards
 ========================== */
@@ -460,11 +461,15 @@ padding:100px 0;
 background:#f8fafc;
 }
 
+.features .section-title{
+text-align:center;
+margin-bottom:50px;
+}
+
 .features-grid{
 display:grid;
-grid-template-columns:repeat(4,1fr);
+grid-template-columns:repeat(4,minmax(0,1fr));
 gap:25px;
-margin-top:50px;
 }
 
 .feature-box{
@@ -475,13 +480,6 @@ text-align:center;
 border:1px solid rgba(212,160,23,.15);
 box-shadow:0 10px 30px rgba(0,0,0,.06);
 transition:all .35s ease;
-opacity:0;
-transform:translateY(40px);
-}
-
-.feature-box.show{
-opacity:1;
-transform:translateY(0);
 }
 
 .feature-box:hover{
@@ -493,7 +491,7 @@ border-color:#d4a017;
 .feature-icon{
 width:75px;
 height:75px;
-margin:auto auto 20px;
+margin:0 auto 20px;
 display:flex;
 align-items:center;
 justify-content:center;
@@ -515,20 +513,44 @@ color:#111827;
 font-size:15px;
 line-height:2;
 color:#666;
+margin:0;
 }
 
 @media(max-width:992px){
 
 .features-grid{
-grid-template-columns:repeat(2,1fr);
+grid-template-columns:repeat(2,minmax(0,1fr));
 }
 
 }
 
 @media(max-width:768px){
 
+.features{
+padding:70px 0;
+}
+
 .features-grid{
 grid-template-columns:1fr;
+gap:20px;
+}
+
+.feature-box{
+padding:25px 20px;
+}
+
+.feature-icon{
+width:65px;
+height:65px;
+font-size:28px;
+}
+
+.feature-box h3{
+font-size:20px;
+}
+
+.feature-box p{
+font-size:14px;
 }
 
 }
