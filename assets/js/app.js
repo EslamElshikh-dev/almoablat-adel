@@ -1,3 +1,4 @@
+```javascript
 window.addEventListener('scroll', () => {
 
 const header = document.querySelector('.header');
@@ -15,7 +16,7 @@ header.style.backdropFilter = 'blur(12px)';
 }
 
 });
-```javascript
+
 const observer = new IntersectionObserver((entries)=>{
 
 entries.forEach((entry)=>{
