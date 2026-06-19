@@ -18,4 +18,32 @@ header.style.webkitBackdropFilter = 'blur(12px)';
 }
 
 });
+
+const form = document.getElementById('contactForm');
+
+if(form){
+
+form.addEventListener('submit', function(e){
+
+e.preventDefault();
+
+const name = document.getElementById('name').value;
+const phone = document.getElementById('phone').value;
+const service = document.getElementById('service').value;
+const details = document.getElementById('details').value;
+
+const message =
+`الاسم: ${name}
+رقم الجوال: ${phone}
+الخدمة المطلوبة: ${service}
+التفاصيل: ${details}`;
+
+window.open(
+`https://wa.me/966567372527?text=${encodeURIComponent(message)}`,
+'_blank'
+);
+
+});
+
+}
 ```
