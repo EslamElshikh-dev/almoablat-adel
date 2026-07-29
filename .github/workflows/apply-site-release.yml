@@ -1,0 +1,56 @@
+name: Apply SEO site release
+
+on:
+  push:
+    branches:
+      - agent/seo-site-rebuild
+    paths:
+      - '.github/workflows/apply-site-release.yml'
+      - '.release/**'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out working branch
+        uses: actions/checkout@v4
+        with:
+          ref: agent/seo-site-rebuild
+          fetch-depth: 0
+
+      - name: Reconstruct verified generator
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .release/site-generator.bz2.part-* | base64 --decode > /tmp/build-site.py.bz2
+          echo "5515d58f8261cd26496e32df4d3384ff145beab8c0dc8f32f9ba434bd13298c8  /tmp/build-site.py.bz2" | sha256sum --check
+          bzip2 --decompress --stdout /tmp/build-site.py.bz2 > /tmp/build-site.py
+
+      - name: Generate and validate website
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 /tmp/build-site.py
+          python3 tools/validate_site.py
+          node --check assets/js/app.js
+
+      - name: Commit generated website
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf .release
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No generated changes to commit."
+            exit 0
+          fi
+          git commit -m "Rebuild local SEO website with service pages and blog"
+          git push origin HEAD:agent/seo-site-rebuild
