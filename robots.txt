@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://eslamelshikh-dev.github.io/almoablat-adel/sitemap.xml
+Sitemap: https://almoablat-adel.vercel.app/sitemap.xml

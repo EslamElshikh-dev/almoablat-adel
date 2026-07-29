@@ -39,7 +39,11 @@ python3 -m http.server 8000
 
 ## النطاق الأساسي
 
-تم الاحتفاظ بالنطاق الحالي في Canonical وSitemap: `https://eslamelshikh-dev.github.io/almoablat-adel/`. بعد اعتماد نطاق Vercel أو نطاق مخصص، غيّر قيمة `SITE_URL` في مولّد المشروع وأعد التوليد قبل طلب الفهرسة.
+تم اعتماد رابط الإنتاج على Vercel في Canonical وSitemap وبيانات المشاركة:
+`https://almoablat-adel.vercel.app/`.
+
+عند ربط نطاق مخصص مستقبلًا، يجب استبدال هذا الرابط في جميع الصفحات وملفات
+`sitemap.xml` و`robots.txt` قبل طلب الفهرسة.
 
 ## ملاحظات SEO
 
