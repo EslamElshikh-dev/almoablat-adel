@@ -93,18 +93,14 @@ def footer_markup(prefix: str) -> str:
 
   <div class="container footer-bottom developer-credit">
     <p class="footer-copyright">جميع الحقوق محفوظة لـ المبلط عادل © <span data-current-year>2026</span></p>
-    <div class="dev-signature" aria-label="توقيع مطور الموقع">
+    <a class="dev-signature" href="https://eslam-elshikh.com/" target="_blank" rel="noopener" aria-label="زيارة الموقع الإلكتروني للمهندس إسلام الشيخ">
       <span class="dev-mark" aria-hidden="true">E</span>
       <span class="dev-copy">
         <small>تم التصميم والتطوير بواسطة · Developed by</small>
-        <a class="dev-name" href="https://eslam-elshikh.com/" target="_blank" rel="noopener">المهندس إسلام الشيخ · Eng. Eslam Elshikh</a>
+        <span class="dev-name">المهندس إسلام الشيخ · Eng. Eslam Elshikh</span>
         <span class="dev-roles">Cybersecurity Engineer · Web Developer · Google Product Expert</span>
       </span>
-      <a class="dev-whatsapp" href="https://wa.me/966547194788?text=مرحبًا المهندس إسلام الشيخ، أريد الاستفسار عن تصميم موقع" target="_blank" rel="noopener">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.5 9.5 9.5 0 0 1-4-1l-5 1 1.2-4.5A8.5 8.5 0 1 1 21 11.5z"/><path d="M9 8c.5 3 2 4.5 5 5"/></svg>
-        تواصل واتساب
-      </a>
-    </div>
+    </a>
   </div>
 </footer>"""
 
