@@ -344,6 +344,17 @@ def generate_articles() -> None:
     article_start = template.index('<article class="article-page">', body_prefix_end)
     article_end = template.index("</article>", article_start) + len("</article>")
     suffix = template[article_end:]
+    # The source article has its own generic FAQ after </article>. New articles
+    # already render a topic-specific FAQ inside <article>, so carrying this
+    # section over would duplicate the visible questions and diverge from the
+    # FAQPage schema.
+    suffix = re.sub(
+        r'\n?<section class="section section-soft" aria-labelledby="faq-title">.*?</section>\n?',
+        "\n",
+        suffix,
+        count=1,
+        flags=re.S,
+    )
 
     for article in ARTICLES:
         destination = ROOT / "blog" / article["slug"] / "index.html"
