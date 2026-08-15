@@ -276,3 +276,15 @@
     });
   }
 })();
+// Keep the blog label consistent on legacy cached markup without rewriting
+// verification metadata in the homepage document.
+document.querySelectorAll('a[href$="blog/"]').forEach((link) => {
+  const compactLabel = link.querySelector('span:last-child');
+  if (compactLabel && compactLabel.textContent.trim() === 'الدليل') {
+    compactLabel.textContent = 'المدونة';
+    return;
+  }
+  if (!link.children.length && link.textContent.trim() === 'دليل البلاط') {
+    link.textContent = 'المدونة';
+  }
+});
