@@ -59,7 +59,7 @@ def footer_markup(prefix: str) -> str:
       <ul>
         <li><a href="{prefix}">الرئيسية</a></li>
         <li><a href="{prefix}services/">جميع الخدمات</a></li>
-        <li><a href="{prefix}blog/">دليل البلاط</a></li>
+        <li><a href="{prefix}blog/">المدونة</a></li>
         <li><a href="{prefix}#contact">طلب معاينة</a></li>
       </ul>
     </nav>
