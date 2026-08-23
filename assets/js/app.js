@@ -275,6 +275,107 @@
       }
     });
   }
+
+  const featuredCarousel = document.querySelector('[data-featured-carousel]');
+  if (featuredCarousel) {
+    const track = featuredCarousel.querySelector('[data-featured-track]');
+    const cards = Array.from(track?.querySelectorAll('.featured-article-card') || []);
+    const previous = featuredCarousel.closest('.container')?.querySelector('[data-featured-prev]');
+    const next = featuredCarousel.closest('.container')?.querySelector('[data-featured-next]');
+    const dots = Array.from(featuredCarousel.querySelectorAll('[data-featured-dot]'));
+    const status = featuredCarousel.querySelector('[data-featured-status]');
+    const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    let currentIndex = 0;
+    let autoplayTimer = 0;
+    let scrollTimer = 0;
+    let touchResumeTimer = 0;
+    const pauses = new Set();
+
+    const updateState = (index, announce = false) => {
+      currentIndex = Math.max(0, Math.min(cards.length - 1, index));
+      dots.forEach((dot, dotIndex) => {
+        if (dotIndex === currentIndex) dot.setAttribute('aria-current', 'true');
+        else dot.removeAttribute('aria-current');
+      });
+      if (status && announce) status.textContent = `المقال ${currentIndex + 1} من ${cards.length}`;
+    };
+
+    const scheduleAutoplay = () => {
+      window.clearTimeout(autoplayTimer);
+      if (reducedMotion || pauses.size || document.hidden || cards.length < 2) return;
+      autoplayTimer = window.setTimeout(() => {
+        goTo((currentIndex + 1) % cards.length);
+      }, 5200);
+    };
+
+    const goTo = (index, announce = false) => {
+      if (!track || !cards.length) return;
+      const normalized = (index + cards.length) % cards.length;
+      const target = cards[normalized];
+      const trackRect = track.getBoundingClientRect();
+      const targetRect = target.getBoundingClientRect();
+      track.scrollBy({
+        left: targetRect.right - trackRect.right,
+        behavior: reducedMotion ? 'auto' : 'smooth',
+      });
+      updateState(normalized, announce);
+      scheduleAutoplay();
+    };
+
+    const detectCurrentCard = () => {
+      if (!track || !cards.length) return;
+      const trackRect = track.getBoundingClientRect();
+      const closest = cards.reduce((best, card, index) => {
+        const distance = Math.abs(card.getBoundingClientRect().right - trackRect.right);
+        return distance < best.distance ? { index, distance } : best;
+      }, { index: 0, distance: Number.POSITIVE_INFINITY });
+      updateState(closest.index);
+      scheduleAutoplay();
+    };
+
+    previous?.addEventListener('click', () => goTo(currentIndex - 1, true));
+    next?.addEventListener('click', () => goTo(currentIndex + 1, true));
+    dots.forEach((dot, index) => dot.addEventListener('click', () => goTo(index, true)));
+
+    track?.addEventListener('scroll', () => {
+      window.clearTimeout(scrollTimer);
+      scrollTimer = window.setTimeout(detectCurrentCard, 120);
+    }, { passive: true });
+
+    featuredCarousel.addEventListener('pointerenter', () => {
+      pauses.add('pointer');
+      window.clearTimeout(autoplayTimer);
+    });
+    featuredCarousel.addEventListener('pointerleave', () => {
+      pauses.delete('pointer');
+      scheduleAutoplay();
+    });
+    featuredCarousel.addEventListener('focusin', () => {
+      pauses.add('focus');
+      window.clearTimeout(autoplayTimer);
+    });
+    featuredCarousel.addEventListener('focusout', (event) => {
+      if (!featuredCarousel.contains(event.relatedTarget)) {
+        pauses.delete('focus');
+        scheduleAutoplay();
+      }
+    });
+    track?.addEventListener('touchstart', () => {
+      pauses.add('touch');
+      window.clearTimeout(autoplayTimer);
+      window.clearTimeout(touchResumeTimer);
+    }, { passive: true });
+    track?.addEventListener('touchend', () => {
+      touchResumeTimer = window.setTimeout(() => {
+        pauses.delete('touch');
+        scheduleAutoplay();
+      }, 4500);
+    }, { passive: true });
+    document.addEventListener('visibilitychange', scheduleAutoplay);
+
+    updateState(0);
+    scheduleAutoplay();
+  }
 })();
 // Keep the blog label consistent on legacy cached markup without rewriting
 // verification metadata in the homepage document.

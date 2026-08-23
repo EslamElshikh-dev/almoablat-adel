@@ -182,7 +182,9 @@ def main() -> None:
     validate_inputs()
     configure_renderer()
     generate_articles()
-    refresh_blog_index()
+    from build_blog_archive import build as build_blog_archive
+
+    build_blog_archive()
     refresh_homepage()
     refresh_sitemap()
     print("Generated 10 local SEO articles and refreshed blog, homepage, and sitemap.")
