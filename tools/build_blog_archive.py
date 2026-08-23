@@ -21,7 +21,7 @@ BLOG = ROOT / "blog"
 BASE_URL = "https://almoablat-adel.vercel.app"
 PAGE_SIZE = 10
 UPDATED = "2026-08-23"
-STYLE_VERSION = "20260823-blog-archive"
+STYLE_VERSION = "20260823-promo-assistant"
 
 FEATURED_SLUGS = [
     "best-tiler-in-riyadh",

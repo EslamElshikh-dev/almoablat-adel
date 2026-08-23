@@ -20,7 +20,7 @@ BASE_URL = "https://almoablat-adel.vercel.app"
 PUBLISHED_DATE = "2026-08-15"
 DISPLAY_DATE = "15 أغسطس 2026"
 PHONE = "966567372527"
-STYLE_VERSION = "20260815-blog-mobile"
+STYLE_VERSION = "20260823-promo-assistant"
 
 
 OLD_ARTICLES = [

@@ -14,7 +14,7 @@ from local_seo_articles_data import ARTICLES
 ROOT = Path(__file__).resolve().parents[1]
 PUBLISHED_DATE = "2026-08-23"
 DISPLAY_DATE = "23 أغسطس 2026"
-STYLE_VERSION = "20260823-local-seo"
+STYLE_VERSION = "20260823-promo-assistant"
 SEO_TITLES = {
     "best-tiler-in-riyadh": "أفضل مبلط في الرياض: اختيار وتنفيذ | المبلط عادل",
     "riyadh-tiler-complete-services": "مبلط الرياض للفلل والشقق | المبلط عادل",

@@ -7,6 +7,25 @@
   const menu = document.querySelector('[data-menu]');
   const themeButton = document.querySelector('[data-theme-toggle]');
 
+  const promoText = 'عرض العودة إلى المدارس: خصم 25٪ على خدمات تأسيس وتشطيب وإصلاح بلاط وسيراميك الأرضيات والجدران';
+  const promoWhatsapp = `https://wa.me/966567372527?text=${encodeURIComponent('مرحبًا المبلط عادل، أرغب في الاستفادة من عرض العودة إلى المدارس بخصم 25٪ على خدمات البلاط والسيراميك.')}`;
+  if (header && !header.querySelector('[data-promo-bar]')) {
+    const promoContent = `
+      <svg class="promo-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></svg>
+      <span>عرض العودة إلى المدارس: <strong>خصم 25٪</strong> على خدمات تأسيس وتشطيب وإصلاح بلاط وسيراميك الأرضيات والجدران</span>
+    `;
+    header.insertAdjacentHTML('afterbegin', `
+      <aside class="promo-bar" data-promo-bar aria-label="${promoText}">
+        <div class="promo-viewport">
+          <div class="promo-track">
+            <a class="promo-item" href="${promoWhatsapp}" target="_blank" rel="noopener" aria-label="${promoText}. اضغط لطلب العرض عبر واتساب">${promoContent}</a>
+            <a class="promo-item" href="${promoWhatsapp}" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1">${promoContent}</a>
+          </div>
+        </div>
+      </aside>
+    `);
+  }
+
   const getPreferredTheme = () => {
     try {
       const saved = localStorage.getItem('adel-theme');
@@ -159,6 +178,26 @@
       reply: 'التقدير الأدق يعتمد على نوع الخدمة والمساحة وحالة السطح والقصّات والحي. أرسل هذه البيانات مع الصور، وسيتم توضيح نطاق العمل قبل الاتفاق.',
       message: 'مرحبًا المبلط عادل، أحتاج تقدير تكلفة لخدمة بلاط في الرياض وسأرسل المساحة والصور والحي.',
     },
+    tileOverTile: {
+      reply: 'يمكن تركيب بلاط فوق بلاط عندما يكون السطح القديم ثابتًا وخاليًا من التطبيل والرطوبة، وتسمح مناسيب الأبواب والمصارف بالارتفاع الجديد. المعاينة تحدد صلاحية الحل قبل التنفيذ.',
+      message: 'مرحبًا المبلط عادل، أحتاج فحص إمكانية تركيب بلاط فوق البلاط الحالي في الرياض.',
+    },
+    duration: {
+      reply: 'تتحدد المدة حسب المساحة ومقاس البلاط وحالة السطح وعدد القصّات وزمن جفاف المواد. بعد الصور أو المعاينة يمكن وضع مدة تقريبية وجدول تنفيذ أوضح.',
+      message: 'مرحبًا المبلط عادل، أريد معرفة المدة المتوقعة لتنفيذ أعمال البلاط في موقعي بالرياض.',
+    },
+    areas: {
+      reply: 'نخدم أحياء مدينة الرياض، ويُنسق موعد المعاينة حسب موقع المشروع وحجم العمل وتوفر الفريق. أرسل اسم الحي وموقعًا تقريبيًا لتأكيد الموعد المناسب.',
+      message: 'مرحبًا المبلط عادل، أريد التأكد من توفر الخدمة في الحي الذي أسكن فيه بمدينة الرياض.',
+    },
+    materials: {
+      reply: 'يمكن الاتفاق على توفير مواد التثبيت والترويب والعزل ضمن نطاق العمل، أو تنفيذ التركيب بمواد يوفّرها العميل بعد مراجعة المواصفات والكميات قبل البدء.',
+      message: 'مرحبًا المبلط عادل، أحتاج توضيح خيارات توفير مواد تركيب وتشطيب البلاط لمشروعي في الرياض.',
+    },
+    bathroomSlope: {
+      reply: 'تُراجع مناسيب العتبة والمصرف وحالة القاعدة أولًا، ثم تُنفذ الميول باتجاه الصرف وتُختبر بالماء بعد اكتمال زمن المواد. مقاس البلاط وموقع المصرف يؤثران في توزيع القصّات.',
+      message: 'مرحبًا المبلط عادل، أحتاج فحص وتنفيذ ميول بلاط حمام أو منطقة رطبة في الرياض.',
+    },
   };
 
   if (!document.querySelector('[data-assistant]')) {
@@ -167,7 +206,7 @@
         <section class="assistant-panel" id="adel-assistant-panel" role="dialog" aria-label="مساعد المبلط عادل" aria-hidden="true">
           <header class="assistant-header">
             <span class="assistant-avatar" aria-hidden="true">
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="7" width="14" height="12" rx="4"/><path d="M9 7V5a3 3 0 0 1 6 0v2M9 12h.01M15 12h.01M9 16h6"/></svg>
+              <img src="/assets/images/assistant-contractor-3d.webp" width="44" height="44" alt="">
             </span>
             <span class="assistant-identity">
               <strong>مساعد المبلط عادل</strong>
@@ -179,7 +218,8 @@
           </header>
           <div class="assistant-body">
             <p class="assistant-greeting">أهلًا بك. اختر احتياجك وسأوضح لك المعلومات المطلوبة قبل التواصل.</p>
-            <div class="assistant-options" aria-label="اختر نوع المساعدة">
+            <div class="assistant-conversation" data-assistant-scroll>
+              <div class="assistant-options" aria-label="اختر نوع المساعدة">
               <button class="assistant-option" type="button" data-assistant-option="installation">
                 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg>
                 <span>أحتاج تركيب بلاط جديد</span>
@@ -200,15 +240,41 @@
                 <span>أريد تقدير التكلفة</span>
                 <svg class="assistant-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
               </button>
-            </div>
-            <div class="assistant-response" data-assistant-response hidden>
-              <p data-assistant-reply></p>
-              <div class="assistant-response-actions">
-                <a class="assistant-whatsapp" data-assistant-whatsapp href="https://wa.me/966567372527" target="_blank" rel="noopener">
-                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.5 9.5 9.5 0 0 1-4-1l-5 1 1.2-4.5A8.5 8.5 0 1 1 21 11.5z"/><path d="M9 8c.5 3 2 4.5 5 5"/></svg>
-                  إكمال الطلب على واتساب
-                </a>
-                <a class="assistant-call" href="tel:0567372527">اتصال</a>
+              <button class="assistant-option" type="button" data-assistant-option="tileOverTile">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16M8 3v6m8 0v6m-8 0v6"/></svg>
+                <span>هل يمكن تركيب بلاط فوق بلاط؟</span>
+                <svg class="assistant-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+              </button>
+              <button class="assistant-option" type="button" data-assistant-option="duration">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                <span>كم تستغرق أعمال التركيب؟</span>
+                <svg class="assistant-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+              </button>
+              <button class="assistant-option" type="button" data-assistant-option="areas">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                <span>هل تخدمون جميع أحياء الرياض؟</span>
+                <svg class="assistant-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+              </button>
+              <button class="assistant-option" type="button" data-assistant-option="materials">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 8 4-8 4-8-4zM4 12l8 4 8-4M4 17l8 4 8-4"/></svg>
+                <span>هل توفرون مواد التركيب والتشطيب؟</span>
+                <svg class="assistant-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+              </button>
+              <button class="assistant-option" type="button" data-assistant-option="bathroomSlope">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 17h14M6 13l4 2 4-5 4 2"/><path d="M18 6v6h-6"/></svg>
+                <span>كيف تُضبط ميول بلاط الحمام؟</span>
+                <svg class="assistant-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+              </button>
+              </div>
+              <div class="assistant-response" data-assistant-response aria-live="polite" tabindex="-1" hidden>
+                <p data-assistant-reply></p>
+                <div class="assistant-response-actions">
+                  <a class="assistant-whatsapp" data-assistant-whatsapp href="https://wa.me/966567372527" target="_blank" rel="noopener">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.5 9.5 9.5 0 0 1-4-1l-5 1 1.2-4.5A8.5 8.5 0 1 1 21 11.5z"/><path d="M9 8c.5 3 2 4.5 5 5"/></svg>
+                    إكمال الطلب على واتساب
+                  </a>
+                  <a class="assistant-call" href="tel:0567372527">اتصال</a>
+                </div>
               </div>
             </div>
             <small class="assistant-privacy">لا تُرسل أي بيانات حتى تضغط على واتساب.</small>
@@ -216,7 +282,7 @@
         </section>
         <span class="assistant-label" aria-hidden="true">المساعد الذكي</span>
         <button class="assistant-toggle" type="button" aria-label="فتح مساعد المبلط عادل" aria-controls="adel-assistant-panel" aria-expanded="false" data-assistant-toggle>
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="7" width="14" height="12" rx="4"/><path d="M9 7V5a3 3 0 0 1 6 0v2M9 12h.01M15 12h.01M9 16h6"/></svg>
+          <span class="assistant-toggle-portrait" aria-hidden="true"><img src="/assets/images/assistant-contractor-3d.webp" width="58" height="58" alt=""></span>
           <span class="assistant-pulse" aria-hidden="true"></span>
         </button>
       </div>
@@ -227,6 +293,7 @@
     const assistantToggle = assistant?.querySelector('[data-assistant-toggle]');
     const assistantClose = assistant?.querySelector('[data-assistant-close]');
     const assistantOptions = assistant?.querySelectorAll('[data-assistant-option]') || [];
+    const assistantConversation = assistant?.querySelector('[data-assistant-scroll]');
     const assistantResponse = assistant?.querySelector('[data-assistant-response]');
     const assistantReply = assistant?.querySelector('[data-assistant-reply]');
     const assistantWhatsapp = assistant?.querySelector('[data-assistant-whatsapp]');
@@ -239,7 +306,8 @@
       assistantPanel.setAttribute('aria-hidden', String(!open));
       if (open) {
         const firstOption = assistant.querySelector('[data-assistant-option]');
-        window.setTimeout(() => firstOption?.focus(), 80);
+        assistantConversation?.scrollTo({ top: 0 });
+        window.setTimeout(() => firstOption?.focus({ preventScroll: true }), 80);
       } else if (restoreFocus) {
         assistantToggle.focus();
       }
@@ -261,6 +329,12 @@
         const message = `${choice.message}\nالصفحة الحالية: ${pageTitle}\nالرابط: ${window.location.href}`;
         assistantWhatsapp.href = `https://wa.me/966567372527?text=${encodeURIComponent(message)}`;
         assistantResponse.hidden = false;
+        window.requestAnimationFrame(() => {
+          assistantConversation?.scrollTo({
+            top: assistantConversation.scrollHeight,
+            behavior: window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+          });
+        });
       });
     });
 
