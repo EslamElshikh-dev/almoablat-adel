@@ -228,7 +228,7 @@ def visible_word_count(article: dict) -> int:
 def article_head(article: dict, word_count: int) -> str:
     canonical = f'{BASE_URL}/blog/{article["slug"]}/'
     image_url = f'{BASE_URL}/assets/images/{article["image"]}'
-    page_title = f'{article["title"]} | المبلط عادل'
+    page_title = article.get("seo_title", f'{article["title"]} | المبلط عادل')
     faq_schema = {
         "@type": "FAQPage",
         "@id": f'{canonical}#faq',
@@ -257,7 +257,10 @@ def article_head(article: dict, word_count: int) -> str:
             "inLanguage": "ar-SA",
             "wordCount": word_count,
             "articleSection": article["category"],
-            "keywords": [article["keyword"], "معلم بلاط بالرياض", "المبلط عادل"],
+            "keywords": article.get(
+                "keywords",
+                [article["keyword"], "معلم بلاط بالرياض", "المبلط عادل"],
+            ),
             "author": {"@type": "Organization", "name": "فريق محتوى المبلط عادل", "url": f"{BASE_URL}/"},
             "publisher": {"@id": f"{BASE_URL}/#business"},
         },
