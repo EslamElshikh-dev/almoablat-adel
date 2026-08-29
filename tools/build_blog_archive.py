@@ -15,6 +15,7 @@ from blog_articles_data import ARTICLES as EXPANSION_ARTICLES
 from generate_blog_expansion import OLD_ARTICLES
 from local_seo_articles_data import ARTICLES as LOCAL_ARTICLES
 from authority_articles_data import ARTICLES as AUTHORITY_ARTICLES
+from decision_articles_data import ARTICLES as DECISION_ARTICLES
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -61,6 +62,7 @@ def match(pattern: str, source: str, label: str) -> str:
 
 def article_order() -> dict[str, int]:
     ordered = [
+        *(article["slug"] for article in DECISION_ARTICLES),
         *(article["slug"] for article in AUTHORITY_ARTICLES),
         *(article["slug"] for article in LOCAL_ARTICLES),
         *(article["slug"] for article in EXPANSION_ARTICLES),

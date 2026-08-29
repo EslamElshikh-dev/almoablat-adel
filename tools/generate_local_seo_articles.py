@@ -187,7 +187,7 @@ def main() -> None:
     build_blog_archive()
     refresh_homepage()
     refresh_sitemap()
-    print("Generated 10 local SEO articles and refreshed blog, homepage, and sitemap.")
+    print("Generated 10 SEO articles and refreshed blog, homepage, and sitemap.")
 
 
 if __name__ == "__main__":
