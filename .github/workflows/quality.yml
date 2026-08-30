@@ -18,5 +18,7 @@ jobs:
           python-version: '3.12'
       - name: Validate static site
         run: python3 tools/validate_site.py
+      - name: Guard decision article uniqueness
+        run: python3 tools/validate_decision_articles.py
       - name: Check JavaScript syntax
         run: node --check assets/js/app.js

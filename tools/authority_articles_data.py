@@ -3,7 +3,7 @@
 
 def make_article(*, slug, title, seo_title, description, category, image, keyword,
                  keywords, hero_summary, intro, sections, faqs, conclusion_title,
-                 conclusion):
+                 conclusion, read_minutes=8):
     return {
         "slug": slug,
         "title": title,
@@ -13,7 +13,7 @@ def make_article(*, slug, title, seo_title, description, category, image, keywor
         "image": image,
         "keyword": keyword,
         "keywords": keywords,
-        "read_minutes": 8,
+        "read_minutes": read_minutes,
         "hero_summary": hero_summary,
         "intro": intro,
         "sections": sections,

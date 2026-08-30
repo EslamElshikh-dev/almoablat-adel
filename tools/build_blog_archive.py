@@ -22,8 +22,8 @@ ROOT = Path(__file__).resolve().parents[1]
 BLOG = ROOT / "blog"
 BASE_URL = "https://almoablat-adel.vercel.app"
 PAGE_SIZE = 10
-UPDATED = "2026-08-29"
-STYLE_VERSION = "20260829-authority-cluster"
+UPDATED = "2026-08-30"
+STYLE_VERSION = "20260830-unique-decision-cluster"
 
 FEATURED_SLUGS = [
     "best-tiler-in-riyadh",

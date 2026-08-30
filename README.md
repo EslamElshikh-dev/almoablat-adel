@@ -8,7 +8,7 @@
 - صفحة تجمع الخدمات
 - 9 صفحات خدمة مستقلة
 - صفحة المدونة
-- 10 مقالات شاملة مرتبطة بالخدمات
+- 50 مقالًا موزعة في أرشيف ثابت بواقع 10 مقالات في الصفحة
 - Sitemap وRobots وManifest وملف إعداد Vercel
 - بيانات منظمة: HomeAndConstructionBusiness وService وBreadcrumbList وBlogPosting وFAQPage وItemList
 
@@ -32,6 +32,7 @@
 
 ```bash
 python3 tools/validate_site.py
+python3 tools/validate_decision_articles.py
 python3 -m http.server 8000
 ```
 

@@ -6,9 +6,9 @@ import generate_local_seo_articles as workflow
 
 
 workflow.ARTICLES = ARTICLES
-workflow.PUBLISHED_DATE = "2026-08-29"
-workflow.DISPLAY_DATE = "29 أغسطس 2026"
-workflow.STYLE_VERSION = "20260829-decision-cluster"
+workflow.PUBLISHED_DATE = "2026-08-30"
+workflow.DISPLAY_DATE = "30 أغسطس 2026"
+workflow.STYLE_VERSION = "20260830-unique-decision-cluster"
 workflow.SEO_TITLES = {article["slug"]: article["seo_title"] for article in ARTICLES}
 
 
