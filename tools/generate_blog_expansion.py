@@ -21,6 +21,7 @@ PUBLISHED_DATE = "2026-08-15"
 DISPLAY_DATE = "15 أغسطس 2026"
 PHONE = "966567372527"
 STYLE_VERSION = "20260823-promo-assistant"
+MAP_URL = "https://maps.app.goo.gl/Jxbv6G8HS91jD3zo8"
 
 
 OLD_ARTICLES = [
@@ -121,10 +122,18 @@ BUSINESS_SCHEMA = {
     "areaServed": {"@type": "City", "name": "الرياض"},
     "address": {
         "@type": "PostalAddress",
+        "streetAddress": "حي المصيف، 2914 المحبي، 6959",
         "addressLocality": "الرياض",
         "addressRegion": "منطقة الرياض",
+        "postalCode": "12465",
         "addressCountry": "SA",
     },
+    "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 24.762114449181418,
+        "longitude": 46.679954222287,
+    },
+    "hasMap": MAP_URL,
     "contactPoint": {
         "@type": "ContactPoint",
         "telephone": "+966567372527",

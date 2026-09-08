@@ -10,6 +10,20 @@ from urllib.parse import unquote, urlparse
 ROOT = Path(__file__).resolve().parents[1]
 ERRORS: list[str] = []
 WARNINGS: list[str] = []
+MAP_URL = "https://maps.app.goo.gl/Jxbv6G8HS91jD3zo8"
+EXPECTED_ADDRESS = {
+    "@type": "PostalAddress",
+    "streetAddress": "حي المصيف، 2914 المحبي، 6959",
+    "addressLocality": "الرياض",
+    "addressRegion": "منطقة الرياض",
+    "postalCode": "12465",
+    "addressCountry": "SA",
+}
+EXPECTED_GEO = {
+    "@type": "GeoCoordinates",
+    "latitude": 24.762114449181418,
+    "longitude": 46.679954222287,
+}
 
 
 def fail(path: Path, message: str) -> None:
@@ -24,6 +38,21 @@ def extract(pattern: str, text: str, flags: int = 0) -> list[str]:
     return re.findall(pattern, text, flags)
 
 
+def find_business_entities(value: object) -> list[dict]:
+    entities: list[dict] = []
+    if isinstance(value, dict):
+        entity_type = value.get("@type")
+        types = entity_type if isinstance(entity_type, list) else [entity_type]
+        if "HomeAndConstructionBusiness" in types:
+            entities.append(value)
+        for child in value.values():
+            entities.extend(find_business_entities(child))
+    elif isinstance(value, list):
+        for child in value:
+            entities.extend(find_business_entities(child))
+    return entities
+
+
 html_files = sorted(ROOT.rglob('*.html'))
 titles: dict[str, Path] = {}
 canonicals: dict[str, Path] = {}
@@ -31,6 +60,7 @@ canonicals: dict[str, Path] = {}
 for path in html_files:
     text = path.read_text(encoding='utf-8')
     is_404 = path.name == '404.html'
+    business_entities: list[dict] = []
     if '<html lang="ar-SA" dir="rtl"' not in text:
         fail(path, 'lang/dir غير مضبوطين')
     h1s = extract(r'<h1(?:\s[^>]*)?>(.*?)</h1>', text, re.I | re.S)
@@ -59,9 +89,20 @@ for path in html_files:
         canonicals[canonical] = path
     for block in extract(r'<script\s+type="application/ld\+json">(.*?)</script>', text, re.I | re.S):
         try:
-            json.loads(block)
+            payload = json.loads(block)
+            business_entities.extend(find_business_entities(payload))
         except json.JSONDecodeError as exc:
             fail(path, f'JSON-LD غير صالح: {exc}')
+    if len(business_entities) != 1:
+        fail(path, f'عدد كيانات النشاط في JSON-LD = {len(business_entities)} بدل 1')
+    else:
+        business = business_entities[0]
+        if business.get('address') != EXPECTED_ADDRESS:
+            fail(path, 'عنوان النشاط في JSON-LD غير متطابق')
+        if business.get('geo') != EXPECTED_GEO:
+            fail(path, 'إحداثيات النشاط في JSON-LD غير متطابقة')
+        if business.get('hasMap') != MAP_URL:
+            fail(path, 'رابط خرائط Google في JSON-LD غير متطابق')
     for img in extract(r'<img\s+[^>]*>', text, re.I):
         if not re.search(r'\salt="[^"]*"', img, re.I):
             fail(path, 'صورة بدون alt')
